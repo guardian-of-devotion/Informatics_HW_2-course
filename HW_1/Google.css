@@ -1,0 +1,50 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    overflow-y: hidden;
+}
+.gphoto {
+    width: 30%;
+    margin-top: -15%;
+
+}
+.gsearch {
+    display: flex;
+    position: absolute;
+    background-color: #f0f0f0;
+    border-radius: 40px;
+    padding: 10px;
+}
+.gtext {
+    border: none;
+    outline: none;
+    background: none;
+    padding: 0;
+    color: #2f3640;
+    font-size: 16px;
+    transition: .4s;
+    line-height: 40px;
+    width: 0;
+}
+.gbutton {
+    justify-content: center;
+    align-items: center;
+    color: #2f3640;
+    width: 20px;
+    height: 50px;
+    margin-left: -3px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    text-decoration: none;
+
+}
+.gsearch:hover .gtext {
+    width: 450px;
+    padding: 0 6px;
+}
+.gsearch:hover {
+    background-color: #f0f0f0;
+}
