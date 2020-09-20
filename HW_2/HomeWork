@@ -1,0 +1,141 @@
+1. SELECT model, speed, hd
+from PC
+WHERE price < 500
+----------------------------
+2. select maker 
+from Product
+where Product.type = 'Printer'
+group by maker
+----------------------------
+3. select model, ram, screen
+from Laptop
+where price >1000
+----------------------------
+4. select code, model, color, type, price
+from Printer
+where color = 'y'
+----------------------------
+5. select model, speed, hd
+from PC
+where price < 600 and (cd = '12x' or cd = '24x')
+----------------------------
+6. select distinct p.maker, l.speed
+from laptop l
+Join product p ON p.model = l.model
+where l.hd >= 10
+----------------------------
+7. select distinct product.model, pc.price
+from product join pc on product.model = pc.model where maker = 'B'
+UNION
+select distinct product.model, laptop.price
+from product join laptop on product.model = laptop.model where maker = 'B'
+UNION
+select distinct product.model, printer.price
+from product join printer on product.model = printer.model where maker = 'B'
+----------------------------
+8. select Product.maker
+from Product where type = 'pc'
+except
+select Product.maker
+from Product where type = 'laptop'
+----------------------------
+9. select distinct Product.maker
+from PC
+inner join Product on PC.model = Product.model
+where PC.speed >= 450
+----------------------------
+10. select model, price
+from Printer
+where price = (select max(price)from printer)
+----------------------------
+11. select avg(speed) from pc
+----------------------------
+12. select avg(speed) from laptop
+where price > 1000
+----------------------------
+13. select avg(PC.speed) 
+from PC, Product
+where PC.model = Product.model and Product.maker = 'A'
+----------------------------
+14. select Classes.class, Ships.name, Classes.country
+from Classes, Ships
+where Classes.class = Ships.class and numGuns >= 10
+----------------------------
+15. select hd
+from PC
+group by (hd) having count(model) >= 2
+----------------------------
+16. select distinct P1.model, P2.model, P1.speed, P1.RAM
+from PC P1, PC P2
+where P1.speed = P2.speed AND P1.RAM = P2.RAM AND P1.model > P2.model
+----------------------------
+17. select distinct p.type, p.model, l.speed
+from Laptop l
+join product p on l.model = p.model
+where l.speed < (select min(speed) from pc)
+----------------------------
+18. select distinct product.maker, printer.price
+from product, printer
+where product.model = printer.model
+and printer.color = 'y'
+and printer.price = (select min(price) from printer
+where printer.color = 'y')
+----------------------------
+19. select distinct product.maker, avg(screen)
+from laptop
+left join product on product.model = laptop.model
+group by product.maker
+----------------------------
+20. select maker, count(model)
+from product
+where type = 'pc'
+group by product.maker
+having count (distinct model) >= 3
+----------------------------
+21. select product.maker, max(pc.price)
+from Product, pc
+where product.model = pc.model
+group by product.maker
+----------------------------
+22. select pc.speed, avg(pc.price)
+from PC
+where pc.speed > 600
+group by pc.speed
+----------------------------
+23. select distinct maker
+from product t1 join pc t2 on t1.model = t2.model
+where speed >= 750 and maker in
+(select maker from product t1 join laptop t2 on t1.model = t2.model
+where speed >= 750)
+----------------------------
+28. Select count(maker)maker from (
+Select maker from Product group by maker having count(model)=1
+)t1
+----------------------------
+31. select distinct class, country
+from Classes
+where bore >= 16
+----------------------------
+33. select o.ship from
+battles b
+left join outcomes o on o.battle = b.name
+where b.name = 'North Atlantic' and o.result = 'sunk'
+----------------------------
+36. select name from ships where class = name
+union
+select ship as name from classes, outcomes where classes.class = outcomes.ship
+----------------------------
+38. select country 
+from Classes where Classes.type = 'bb'
+Intersect
+select country
+from Classes where Classes.type = 'bc'
+----------------------------
+42. select ship, battle
+from outcomes
+where result = 'sunk'
+----------------------------
+43. select name
+from battles
+where year(date) not in(select launched from ships where launched is not null)
+----------------------------
