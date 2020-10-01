@@ -1,0 +1,30 @@
+private Connection connection;
+
+    private static final String SQL_SELECT_USERS_BY_AGE = "select * from driver where age =?";
+
+    public UsersRepositoryJdbcImpl(Connection connection) {
+        this.connection = connection;
+    }
+
+    @Override
+    public List<User> findAllByAge(Integer age) {
+       try {
+           Statement statement = connection.createStatement();
+           ResultSet resultSet = statement.executeQuery(SQL_SELECT_USERS_BY_AGE);
+
+           List<User> result = new ArrayList<>();
+
+           while (resultSet.next()) {
+               User user = new User(
+                       resultSet.getLong("id"),
+                       resultSet.getString("first_name"),
+                       resultSet.getString("last_name"),
+                       resultSet.getInt("age"));
+               result.add(user);
+           }
+
+           return result;
+       } catch (SQLException e) {
+           throw new IllegalStateException(e);
+       }
+    }
