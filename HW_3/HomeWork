@@ -15,11 +15,7 @@ private Connection connection;
            List<User> result = new ArrayList<>();
 
            while (resultSet.next()) {
-               User user = new User(
-                       resultSet.getLong("id"),
-                       resultSet.getString("first_name"),
-                       resultSet.getString("last_name"),
-                       resultSet.getInt("age"));
+               User user = new User(resultSet.getInt("age"));
                result.add(user);
            }
 
